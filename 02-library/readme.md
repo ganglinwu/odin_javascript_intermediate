@@ -1,4 +1,4 @@
-This is a project from <Odin Project>
+This is a project from Odin Project
 
 The aim is the create some sort of CRUD app but it is purely local storage at this stage
 
