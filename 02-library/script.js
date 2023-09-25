@@ -5,13 +5,17 @@ window.addEventListener("DOMContentLoaded", (event) => {
     }
 });
 
+//global variables
+var count = 0 //helps to index our books
+//var bookCount = 0 // total number of books
+
+
 
 // helper function to validate form
 
 function validateForm(e) {
     const form = e.target.form;
     console.log(form);
-    let count = 0;
 
     // space for future improvement
     // check to see if book already added becore implementing count++
@@ -66,8 +70,10 @@ function Book(title, author, pages, read) {
 */
 
 function addBook(book, count) {
-    const mainContainer = document.getElementById('#mainContainer');
+    const mainC = document.getElementById('mainContainer');
     const bookDiv = document.createElement('div');
+    bookDiv.classList.add('book'+count)
+
     const ul = document.createElement('ul');
     
     const li1 = document.createElement('li');
@@ -91,14 +97,21 @@ function addBook(book, count) {
     checkBox.type = 'checkbox';
     checkBox.name = '' + count;
     checkBox.id = 'read' + count;
+    if (book.read) {
+        checkBox.checked = true;
+    }
+    li5.appendChild(checkBox);
+
     const label = document.createElement("label");
     label.for = checkBox.name
     label.innerText = 'Read'
-    li5.appendChild(checkBox);
     li5.appendChild(label)
+    
     ul.appendChild(li5)
 
     const li6 = document.createElement('li');
+    li6.classList.add('delBook')
+
     const delBookBtn = document.createElement('button');
     delBookBtn.type= 'button';
     delBookBtn.innerText = 'Delete Book'
@@ -107,5 +120,5 @@ function addBook(book, count) {
 
     bookDiv.appendChild(ul);
 
-    mainContainer.appendChild(bookDiv);
+    mainC.appendChild(bookDiv);
 }

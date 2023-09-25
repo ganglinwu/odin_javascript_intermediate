@@ -1,6 +1,6 @@
 @font-face {
     font-family: hanken;
-    src: url(.\fonts\Hanken-Book.ttf);
+    src: url(./fonts/Hanken-Book.ttf);
 }
 
 * {
@@ -271,7 +271,7 @@ button.deleteAll:hover {
 }
 
 #mainContainer div {
-    border-radius: 10%;
+    border-radius: 20px;
 
     background-color: var(--yellow);
 
@@ -289,8 +289,8 @@ button.deleteAll:hover {
 
 #mainContainer>div>ul {
 
-    border-top-right-radius:10%;
-    border-top-left-radius: 10%;
+    border-top-right-radius:20px;
+    border-top-left-radius: 20px;
 
     display: flex;
     flex-direction: column;
