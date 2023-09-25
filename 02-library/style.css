@@ -1,32 +1,190 @@
+@font-face {
+    font-family: hanken;
+    src: url(.\fonts\Hanken-Book.ttf);
+}
+
 * {
     margin: 0;
     padding: 0;
 
     box-sizing: border-box;
 
+    font-family: hanken, sans-serif;
+
+    /* variables */
     --darkModeBG: #000;
     --lightModeBG: #fff;
+    --darkBLue: #177eb8;
+    --lightBlue: #59d9ff;
+    --yellow: #ffbf0d;
+    --grey: #998CB3;
+
+    --leftMargin: 20px;
+    --topMargin: 20px;
+    --rightMargin: 20px;
+
+    --logoTitle: 60px;
+    --formFont: 24px;
 
     /* temporary values */
-    background-color: var(--darkModeBG);
+    background-color: var(--lightModeBG);
+    color:var(--darkModeBG)
 }
 
 .container {
     display: grid;
 
-    grid-template-columns: 400px 1fr;
-    grid-template-rows: 200px 1fr;
+    grid-template-columns: clamp(300px,20vw,400px) 1fr;
+    grid-template-rows: minmax(150px, 15vh) 1fr;
     
     height: 100vh;
 }
+
+/* ----------------------------------------------*/
+/* ------------ CSS code for SIDEBAR ------------*/
+/* ----------------------------------------------*/
 
 #sidebar {
     grid-column: 1/2;
     grid-row: 1/-1;
 
+    padding-left: var(--leftMargin);
+    padding-top: var(--topMargin);
+    padding-right: var(--rightMargin);
+
     /* temporary values */
     border: 1px solid yellowgreen;
+    background-color: var(--lightBlue)
 }
+
+.logoContainer {
+    display: flex;
+
+    justify-content: center;
+    
+    background-color: inherit;
+}
+
+.logo {
+    height: var(--logoTitle);
+    width: var(--logoTitle);
+}
+
+.logoContainer>h1 {
+    font-size: var(--logoTitle);
+
+    background-color: inherit;
+}
+
+form {
+    background-color: inherit;
+}
+
+ul {
+    display: flex;
+
+    flex-direction: column;
+
+    background-color: inherit;
+}
+
+ul * {
+    font-size: var(--formFont);
+
+    border-radius: 20px;
+}
+
+li.inputContainer {
+    display: flex;
+    flex-direction: column;
+
+    background-color: inherit;
+
+    padding-top: var(--topMargin);
+}
+
+li.inputContainer>label {
+    background-color: inherit;
+}
+
+li.inputContainer>input {
+    border: none;
+
+    font-size: 20px;
+
+    padding: 10px 0px 5px 20px;
+
+    transition: all 0.5s ease-in;
+}
+
+form>ul li.inputContainer>input:focus {
+    outline: none;
+
+    color: var(--darkBLue);
+    background-color: var(--yellow);
+}
+
+form>ul li.inputContainer>input:hover {
+    background-color: var(--yellow);
+}
+
+li.checkboxContainer {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: flex-start;
+
+    gap: 20px;
+
+    background-color: inherit;
+
+    padding-top: var(--topMargin)
+}
+
+input#read {
+    height: 20px;
+    width: 20px;
+}
+
+li.checkboxContainer>label {
+    background-color: inherit;
+}
+
+form#newbook>ul>button.submit {
+    margin-top: var(--topMargin);
+    padding: 10px 20px;
+
+    border: none;
+
+    justify-self: center;
+
+    background-color: var(--yellow);
+    color: var(--darkBLue)
+}
+
+form#newbook>ul>button.submit:hover {
+    background-color: var(--darkBLue);
+    color: var(--yellow);
+}
+
+/* the following removes default styling */
+/* of number input on most browsers*/
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* ---------------------------------------------*/
+/* ------------ CSS code for HEADER ------------*/
+/* ---------------------------------------------*/
 
 #header {
     grid-column: 2/-1;
@@ -35,6 +193,11 @@
     /* temporary values */
     border: 1px solid pink;
 }
+
+
+/* ---------------------------------------------------*/
+/* ------------ CSS code for MAIN DISPLAY ------------*/
+/* ---------------------------------------------------*/
 
 #main {
     grid-column: 2/-1;

@@ -9,29 +9,29 @@
 <body>
     <div class="container">
         <div id="sidebar">
-            <div class="logoTitle">
-                <img src="" alt="" class="logo">
-                <h1></h1>
+            <div class="logoContainer">
+                <img src="./img/bookshelf.svg" alt="icon for Library" class="logo">
+                <h1>Library</h1>
             </div>
             <form action="./" method="'post" id="newbook">
                 <ul>
-                    <li>
+                    <li class="inputContainer">
                         <label for="title">Title</label>
-                        <input type="text" name="title" id="newbook" required>
+                        <input type="text" name="title" id="title" required placeholder="e.g. The Hobbit">
                     </li>
-                    <li>
+                    <li class="inputContainer">
                         <label for="author">Author</label>
-                        <input type="text" name="author" id="newbook" required>
+                        <input type="text" name="author" id="author" required placeholder="e.g. J. R. R. Tolkien">
                     </li>
-                    <li>
+                    <li class="inputContainer">
                         <label for="pages">Number of Pages</label>
-                        <input type="number" name="pages" id="newbook" required>
+                        <input type="number" name="pages" id="pages" required placeholder="e.g. 310">
                     </li>
-                    <li>
+                    <li class="checkboxContainer">
+                        <input type="checkbox" name="read" id="read" value="true">
                         <label for="read">I have read this book!</label>
-                        <input type="checkbox" name="read" id="newbook" value="true">
                     </li>
-                    <button type="submit">Add to Library!</button>
+                    <button type="button" class="submit">Add to Library!</button>
                 </ul>
             </form>
         </div>
