@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="container">
@@ -48,12 +49,20 @@
             <button type="button" class="deleteAll">Delete All</button>
        </div>
        <div id="main">
-            <div class="mainContainer">
-                <div>
+            <div id="mainContainer">
+                <div class="book1">
                     <ul>
-                        <li>The Hobbit</li>
-                        <li>J. R. R. Tolkien</li>
-                        <li>310</li>
+                        <li>No: 1</li>
+                        <li>Title: The Hobbit</li>
+                        <li>Author: J. R. R. Tolkien</li>
+                        <li>Pages: 310</li>
+                        <li>
+                            <input type="checkbox" name="1" id="1read">
+                            <label for="1">Read</label>
+                        </li>
+                        <li class="delBook">
+                            <button type="button">Delete Book</button>
+                        </li>
                     </ul>
                 </div>
             </div>

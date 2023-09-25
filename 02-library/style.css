@@ -254,7 +254,7 @@ button.deleteAll:hover {
     background-color: var(--darkBLue);
 }
 
-.mainContainer{
+#mainContainer{
 
     padding-left: var(--leftMargin);
     padding-right: var(--rightMargin);
@@ -262,14 +262,66 @@ button.deleteAll:hover {
 
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: 300px repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: 300px;
 
     gap: 20px;
 
     background-color: inherit;
 }
 
-#main div {
-    height: 200px;
+#mainContainer div {
+    border-radius: 10%;
+
+    background-color: var(--yellow);
+
+    transition: all 0.2s ease-in-out;
+}
+
+#mainContainer div:hover {
+
+    border: 10px solid var(--lightBlue);
+}
+
+#mainContainer div:hover *:not(button) {
+    color: var(--darkBLue);
+}
+
+#mainContainer>div>ul {
+
+    border-top-right-radius:10%;
+    border-top-left-radius: 10%;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px;
+
+    background-color: inherit;
+}
+
+#mainContainer>div>ul * {
+    font-size: 18px;
+
+    margin-top: 10px;
+    
+}
+
+#mainContainer>div>ul li,
+#mainContainer>div>ul li label {
+    background-color: inherit;
+}
+
+.delBook {
+    align-self: center;
+
+    display: flex;
+}
+
+#mainContainer button {
+    background-color: red;
+    color: var(--lightModeBG);
+
+    padding: 5px 5px;
 
 }
