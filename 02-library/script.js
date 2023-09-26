@@ -8,7 +8,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
       submitBtn.addEventListener('click',  validateForm);
     }
 
-    refreshBooks(); 
+    refresh(); 
 
     const deleteAllBtn = document.querySelector('#deleteAll');
     deleteAllBtn.addEventListener('click', deleteAllBooks)
@@ -105,6 +105,7 @@ function addBook(book, count) {
     checkBox.id = 'read' + count;
     if (book.read) {
         checkBox.checked = true;
+        bookDiv.classList.add('checked');
     }
     li5.appendChild(checkBox);
 
@@ -129,7 +130,7 @@ function addBook(book, count) {
 
     mainC.appendChild(bookDiv);
 
-    refreshBooks();
+    refresh();
 }
 
 // helper function to delete book
@@ -142,7 +143,7 @@ function deleteBook(e) {
     const response = confirm('Are you sure you want to delete this book?')
     if (response) {
         e.target.parentElement.parentElement.parentElement.remove()
-        refreshBooks();
+        refresh();
     } 
 }
 
@@ -158,13 +159,29 @@ function deleteAllBooks() {
     }
 }
 
+// refresh does a few things
 // add eventlistener to all deleteBook buttons
+// add eventlistener to all read checkbox(for books)
+// updated stats in header
 
-function refreshBooks() {
+function refresh() {
     const deleteBookBtns = document.querySelectorAll('.deleteBook');
     if (Array.from(deleteBookBtns).length) {
         Array.from(deleteBookBtns).forEach(btn => {
             btn.addEventListener('click', deleteBook)
         });
+    }
+
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    if (Array.from(checkboxes).length) {
+        Array.from(checkboxes).forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    checkbox.parentElement.parentElement.parentElement.classList.add('checked');
+                } else {
+                    checkbox.parentElement.parentElement.parentElement.classList.remove('checked');
+                }
+            })
+        })
     }
 }

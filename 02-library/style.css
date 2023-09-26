@@ -273,14 +273,20 @@ button#deleteAll:hover {
 #mainContainer div {
     border-radius: 20px;
 
-    background-color: var(--yellow);
+    background: linear-gradient(to left, #fff 50%, var(--yellow) 50%) right;
+    background-size: 200% 100%;
 
-    transition: all 0.2s ease-in-out;
+    transition: all 1s ease-in-out;
 }
 
 #mainContainer div:hover {
 
-    border: 10px solid var(--lightBlue);
+    background-position: left;
+}
+
+#mainContainer div.checked {
+    background-color: var(--yellow);
+    color: var(--darkBLue);
 }
 
 #mainContainer div:hover *:not(button) {
