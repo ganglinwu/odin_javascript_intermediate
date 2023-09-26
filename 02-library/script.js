@@ -1,12 +1,19 @@
+// global variables
+var count = 0 //helps to index our books
+
+// event listeners for buttons
 window.addEventListener("DOMContentLoaded", (event) => {
     const submitBtn = document.querySelector('button.submit');
     if (submitBtn) {
       submitBtn.addEventListener('click',  validateForm);
     }
+
+    refreshBooks();
+
+    const deleteAllBtn = document.querySelector('#deleteAll');
+    deleteAllBtn.addEventListener('click', deleteAllBooks)
 });
 
-//global variables
-var count = 0 //helps to index our books
 //var bookCount = 0 // total number of books
 
 
@@ -95,7 +102,7 @@ function addBook(book, count) {
     const li5 = document.createElement('li');
     const checkBox = document.createElement('input');
     checkBox.type = 'checkbox';
-    checkBox.name = '' + count;
+    checkBox.name = 'checkbox' + count;
     checkBox.id = 'read' + count;
     if (book.read) {
         checkBox.checked = true;
@@ -115,10 +122,50 @@ function addBook(book, count) {
     const delBookBtn = document.createElement('button');
     delBookBtn.type= 'button';
     delBookBtn.innerText = 'Delete Book'
+    delBookBtn.classList.add('deleteBookBtn');
     li6.appendChild(delBookBtn);
     ul.appendChild(li6);
 
     bookDiv.appendChild(ul);
 
     mainC.appendChild(bookDiv);
+
+    refreshBooks();
+}
+
+// helper function to delete book
+
+function deleteBook(e) {
+    // the button is nested under an li
+    // which is then nested under an ul
+    // which is then nested under a div
+    // to remove the book we need to access the great-grandparents of e.target
+    const response = confirm('Are you sure you want to delete this book?')
+    if (response) {
+        e.target.parentElement.parentElement.parentElement.remove()
+        refreshBooks();
+    } 
+}
+
+// helper function to delete ALL books
+
+function deleteAllBooks() {
+    const mainC = document.getElementById('mainContainer');
+    const response = confirm('Are you sure you want to delete ALL books?')
+    if (response) {
+        while (mainC.firstChild) {
+            mainC.removeChild(mainC.firstChild);
+    } 
+    }
+}
+
+// add eventlistener to all deleteBook buttons
+
+function refreshBooks() {
+    const deleteBookBtns = document.querySelectorAll('.deleteBook');
+    if (Array.from(deleteBookBtns).length) {
+        Array.from(deleteBookBtns).forEach(btn => {
+            btn.addEventListener('click', deleteBook)
+        });
+    }
 }

@@ -218,7 +218,7 @@ input[type=number] {
     background-color: inherit;
 }
 
-button.deleteAll {
+button#deleteAll {
     font-size: 1rem;
 
     border:none;
@@ -235,7 +235,7 @@ button.deleteAll {
     transition: all 0.2s ease-in; 
 }
 
-button.deleteAll:hover {
+button#deleteAll:hover {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     height: 3.9rem;
