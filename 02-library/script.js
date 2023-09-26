@@ -8,7 +8,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
       submitBtn.addEventListener('click',  validateForm);
     }
 
-    refreshBooks();
+    refreshBooks(); 
 
     const deleteAllBtn = document.querySelector('#deleteAll');
     deleteAllBtn.addEventListener('click', deleteAllBooks)
@@ -22,7 +22,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 function validateForm(e) {
     const form = e.target.form;
-    console.log(form);
 
     // space for future improvement
     // check to see if book already added becore implementing count++
@@ -122,7 +121,7 @@ function addBook(book, count) {
     const delBookBtn = document.createElement('button');
     delBookBtn.type= 'button';
     delBookBtn.innerText = 'Delete Book'
-    delBookBtn.classList.add('deleteBookBtn');
+    delBookBtn.classList.add('deleteBook');
     li6.appendChild(delBookBtn);
     ul.appendChild(li6);
 
