@@ -1,5 +1,6 @@
 // global variables
-var count = 0 //helps to index our books
+var count = 1 //helps to index our books
+var myLibrary = [];
 
 // event listeners for buttons
 window.addEventListener("DOMContentLoaded", (event) => {
@@ -23,20 +24,24 @@ window.addEventListener("DOMContentLoaded", (event) => {
 function validateForm(e) {
     const form = e.target.form;
 
-    // space for future improvement
-    // check to see if book already added becore implementing count++
-
 
     if (form.checkValidity()) {
-        count ++;
         const title = e.target.form[0].value;
         const author = e.target.form[1].value;
         const pages = e.target.form[2].value;
         const read = e.target.form[3].checked;
-
-        let book = new Book(title, author, pages, read);
-
-        addBook(book, count);
+        
+        let book = new Book(count, title, author, pages, read);
+        
+        if (myLibrary.some(myLibBook => myLibBook.title === book.title) &&
+        myLibrary.some(myLibBook => myLibBook.author === book.author) &&
+        myLibrary.some(myLibBook => myLibBook.pages === book.pages)) {
+            alert('This book is already in your library, thus we will not add it.')
+        } else {
+            addBookToLibrary(book); // add book to myLibrary array
+            addBook(book, count); // add book as a card to webpage
+            count ++;
+        }
     } else {
         e.preventDefault();
     }
@@ -44,11 +49,18 @@ function validateForm(e) {
 
 // object constructor Book 
 
-function Book(title, author, pages, read) {
+function Book(index, title, author, pages, read) {
+    this.index = index;
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+}
+
+// function to add book to array
+
+function addBookToLibrary(book) {
+    myLibrary.push(book);
 }
 
 // helper function to add a new book;
@@ -140,9 +152,23 @@ function deleteBook(e) {
     // which is then nested under an ul
     // which is then nested under a div
     // to remove the book we need to access the great-grandparents of e.target
+    const bookDiv = e.target.parentElement.parentElement.parentElement;
+
     const response = confirm('Are you sure you want to delete this book?')
     if (response) {
-        e.target.parentElement.parentElement.parentElement.remove()
+        // delete book from myLibrary array
+        myLibrary.forEach(book => {
+            // bookDiv will have class of book[digits]
+            // e.g. book1, book11, book101
+            // so we slice out the first 4 char (which spells 'book')
+            // and compare it with the book.index
+            if (bookDiv.classList[0].slice(4)== String(book.index)) {
+                // once we have a match
+                // splice the book out of library
+                myLibrary.splice(myLibrary.indexOf(book),1)
+            }
+        })
+        bookDiv.remove()
         refresh();
     } 
 }
@@ -157,6 +183,7 @@ function deleteAllBooks() {
             mainC.removeChild(mainC.firstChild);
     } 
     }
+    myLibrary = [];
     updateStats();
 }
 
