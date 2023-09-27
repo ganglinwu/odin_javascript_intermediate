@@ -157,31 +157,46 @@ function deleteAllBooks() {
             mainC.removeChild(mainC.firstChild);
     } 
     }
+    updateStats();
 }
 
 // refresh does a few things
 // add eventlistener to all deleteBook buttons
 // add eventlistener to all read checkbox(for books)
-// updated stats in header
 
 function refresh() {
-    const deleteBookBtns = document.querySelectorAll('.deleteBook');
-    if (Array.from(deleteBookBtns).length) {
-        Array.from(deleteBookBtns).forEach(btn => {
+    const allDeleteBookBtns = Array.from(document.querySelectorAll('.deleteBook'));
+    if (allDeleteBookBtns.length) {
+        allDeleteBookBtns.forEach(btn => {
             btn.addEventListener('click', deleteBook)
         });
     }
 
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    if (Array.from(checkboxes).length) {
-        Array.from(checkboxes).forEach(checkbox => {
+    const checkboxes = Array.from(document.querySelectorAll('#main input[type="checkbox"]'));
+    if (checkboxes.length) {
+        checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', function() {
                 if (this.checked) {
                     checkbox.parentElement.parentElement.parentElement.classList.add('checked');
                 } else {
                     checkbox.parentElement.parentElement.parentElement.classList.remove('checked');
                 }
+                updateStats();
             })
         })
     }
+    updateStats();
+}
+
+function updateStats() {
+    const readBooks = Array.from(document.getElementsByClassName('checked'));
+    const totalBooks = Array.from(document.querySelectorAll('.deleteBook'));
+
+    const totalBooksDisplay = document.querySelector('span.totalBooks');
+    const readBooksDisplay = document.querySelector('span.booksRead');
+    const booksNotReadDisplay = document.querySelector('span.booksNotRead');
+
+    totalBooksDisplay.innerText = '' + totalBooks.length;
+    readBooksDisplay.innerText = '' + readBooks.length;
+    booksNotReadDisplay.innerText = '' + (totalBooks.length - readBooks.length);
 }
