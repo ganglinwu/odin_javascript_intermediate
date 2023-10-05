@@ -1,4 +1,9 @@
 // code for tic tac toe game
+// we use values to calculate win conditions and to implement minimax
+// player will have a value of 1 assigned to each box he occupies
+// whilst com will have a value of -1
+// we can check for 3 or -3 to detect if a win has been achieved
+
 
 const tictactoe = (() => {
     // nodelist of tictactoe boxes
@@ -8,13 +13,13 @@ const tictactoe = (() => {
     let _gameOver = false;
 
     // span to announce result of game
-    const resultSpan = document.querySelector('.result');
+    const _resultSpan = document.querySelector('.result');
 
     // reset button
-    const resetBtn = document.getElementsByTagName('button')[0];
+    const _resetBtn = document.getElementById('resetBtn');
     
-    // initialize gameboard
-    let _gBoard = new Array(9).fill(null);
+    // initialize gameboard array to determine win condition and game status
+    let _gBoardValue = new Array(9).fill(null);
 
     // initialize win condition values
     let _r1 , _r2, _r3, _c1, _c2, _c3, _d1, _d2, _rowColumnDiagonalArr;
@@ -26,7 +31,7 @@ const tictactoe = (() => {
         return {getName, getMark}
     }
     
-    // initialize player 1 and computer
+    // initialize player 1 and computer Objects
     // player 1's mark will have a value of 1
     // computer's mark will have a value of -1
     // this will facilitate determining win condition
@@ -40,23 +45,34 @@ const tictactoe = (() => {
             if (_tttBoxNodeList[indexNum].innerHTML) {
                 // if innerHTML is not empty string, it means this box has 
                 // already been marked with x or o
+                
                 e.preventDefault();
             } else {
                 if (_gameOver === false) {
-                    _tttBoxNodeList[indexNum].innerHTML = 'x';
+                    // we can continue below if game is not over
+
                     _player1Move(indexNum);
+                    // mark player1's move on html page
+                    // log player1's value into gBoardValues Array
+
                     _updateValues();
+                    // update all Values, row sum, column sum, diagonal sum
+                    // and check if win lose draw or continue
+                    
                     if (_determine() === 1) {
-                        resultSpan.innerText = 'Player wins!';
+                        _resultSpan.innerText = 'Player wins!';
                         _gameOver = true;
                     } else if (_determine() === -1) {
-                        resultSpan.innerText = 'Computer wins!';
+                        _resultSpan.innerText = 'Computer wins!';
                         _gameOver = true;
                     } else if (_determine() === 2) {
-                        resultSpan.innerText = 'It\'s a draw!';
+                        _resultSpan.innerText = 'It\'s a draw!';
                         _gameOver= true;
                     } 
                 } else {
+                    // else the _gameOver value is true
+                    // no marking of boxes allowed
+
                     e.preventDefault();
                 }
             }
@@ -64,42 +80,45 @@ const tictactoe = (() => {
     })
 
     // add click event listening for reset button
-    resetBtn.addEventListener('click', _resetBoard)
+    _resetBtn.addEventListener('click', _resetGame)
 
     // get index number of box from mouse click event
-    const _getBoxIndex = (evt) => {
+    function _getBoxIndex(evt) {
         return evt.target.id.slice(3);
+        // id of boxes are sequentially named
+        // box0, box1, box2...
+        // by slicing id string from index 3 we get the box's index no.
     }
     
-    // private method to initialize an array with 9 slots
-    function _resetBoard() {
-        _gBoard = new Array(9).fill(null);
+    // reset game
+    function _resetGame() {
+        _gBoardValue = new Array(9).fill(null);
         Array.from(_tttBoxNodeList).forEach(box=> box.innerText = '');
-        resultSpan.innerText = '';
+        _resultSpan.innerText = '';
         _gameOver = false;
     }
 
 
     // helper function to check sum of values in array
-    function _gBoardSum(a,b,c) {
-        return _gBoard[a]+_gBoard[b]+_gBoard[c];
+    function _gBoardValueSum(a,b,c) {
+        return _gBoardValue[a]+_gBoardValue[b]+_gBoardValue[c];
     }
 
     // helper function to update win condition values
     function _updateValues() {
         /* variables that check horizontal win condition*/
-        _r1 = _gBoardSum(0,1,2);
-        _r2 = _gBoardSum(3,4,5);
-        _r3 = _gBoardSum(6,7,8);
+        _r1 = _gBoardValueSum(0,1,2);
+        _r2 = _gBoardValueSum(3,4,5);
+        _r3 = _gBoardValueSum(6,7,8);
     
         /* variables that check vertical win condition*/
-        _c1 = _gBoardSum(0,3,6);
-        _c2 = _gBoardSum(1,4,7);
-        _c3 = _gBoardSum(2,5,8);
+        _c1 = _gBoardValueSum(0,3,6);
+        _c2 = _gBoardValueSum(1,4,7);
+        _c3 = _gBoardValueSum(2,5,8);
     
         /* variables that check diagnonal win condition*/
-        _d1 = _gBoardSum(0,4,8);
-        _d2 = _gBoardSum(6,4,2);
+        _d1 = _gBoardValueSum(0,4,8);
+        _d2 = _gBoardValueSum(6,4,2);
     
         _rowColumnDiagonalArr = [_r1, _r2, _r3, _c1, _c2, _c3, _d1, _d2];
     }
@@ -107,15 +126,18 @@ const tictactoe = (() => {
 
     // players can make a move
     // i.e. occupy a spot on the tic tac toe board
-    // we store this is the _gBoard array
-    function _player1Move(i) {
-        _gBoard.splice(i,1,_p1.getMark());
+    // we store this in the _gBoardValue array
+    // then we mark the spot with an x on the html page
+    function _player1Move(indexNum) {
+        _gBoardValue.splice(indexNum,1,_p1.getMark());
+        _tttBoxNodeList[indexNum].innerHTML = 'x';
     }
 
     // computer can also make a move
     // but this will be a private function
-    const _comMove = (i) => {
-        _gBoard.splice(i,1,_com.getMark());
+    function _comMove(indexNum) {
+        _gBoardValue.splice(indexNum,1,_com.getMark());
+        _tttBoxNodeList[indexNum].innerHTML = 'x';
     }
 
     // determine winner
@@ -124,7 +146,7 @@ const tictactoe = (() => {
             return 1; // player win
         } else if (_rowColumnDiagonalArr.includes(-3)) {
             return -1; // computer win 
-        } else if (_gBoard.some(element => element===null)) {
+        } else if (_gBoardValue.some(element => element===null)) {
             return 0; // there are still empty boxes, game has not ended
         } else {
             return 2; // game ended, no more boxes to click
@@ -133,7 +155,7 @@ const tictactoe = (() => {
 
     // start game
     const start = () => {
-        _resetBoard();
+        _resetGame();
         _updateValues();
     }
 
