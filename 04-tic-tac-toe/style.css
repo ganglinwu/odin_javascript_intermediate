@@ -1,8 +1,14 @@
+html {
+    font-size: 12px; /*1rem size*/
+}
+
 * {
     padding: 0;
     margin: 0;
 
     box-sizing: border-box;
+    
+    background-color: #d5d6d7;
 }
 
 #container {
@@ -10,36 +16,33 @@
     width: 100vw;
 
     display: flex;
+    flex-direction: column;
 
     align-items: center;
     justify-content: center;
 
-    background-color: #d5d6d7;
 }
 
 #header {
-    height: 900px;
 
     display: flex;
     flex-direction: column;
 
     align-items: center;
-
-    padding-right: 50px;
 }
 
 #header>h1 {
-    overflow-wrap: break-word;
+    text-align: center;
 
-    font-size: 3rem;
+    font-size: 1.5rem;
 
-    padding: 3rem;
-
-    margin-top: 180px;
+    padding-bottom: 2rem;
 }
 
 #header>p {
-    font-size: 1.5rem;
+    text-align: center;
+
+    font-size: 1rem;
 }
 
 #main {
@@ -52,11 +55,10 @@
 
 #gamegrid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(90px,1fr));
+    grid-template-rows: repeat(3, minmax(90px, 1fr));
 
-    width: 900px;
-    height: 900px;
+    margin-top: 3rem;
 }
 
 #gamegrid * {
@@ -68,12 +70,103 @@
     align-items: center;
     justify-content: center;
 
-    font-size: 30rem;
-
-    padding-bottom: 90px; /* vertically center x and o */
+    font-size: 6rem;
 
     /* temporary values */
     border: 3px solid green;
 
     color: green;
 }
+
+
+/* -------------------------------------------- */
+/* ------------ FOR TABLET/DESKTOP ------------ */
+/* -------------------------------------------- */
+
+@media (min-width: 760px) and (max-width: 1440px) {
+    html {
+        box-sizing: border-box;
+        font-size: 21px; /*1rem size*/
+    }
+
+
+
+    #gamegrid {
+        height: 600px;
+        width: 600px;
+
+        grid-template-columns: repeat(3, minmax(200px));
+        grid-template-rows: repeat(3, minmax(200px));
+    }
+
+    #gamegrid * {
+        font-size: 8rem;
+
+        padding-bottom: 20px; /* vertically align x o */
+    }
+
+}
+/* ------------------------------------------ */
+/* ------------ FOR WIDE SCREENS ------------ */
+/* ------------------------------------------ */
+
+@media (min-width: 1440px) {
+    html {
+        box-sizing: border-box;
+        font-size: 30px; /*1rem size*/
+    }
+
+    #container {
+      display: grid;
+
+      align-items: center;
+      justify-content: center;
+
+      grid-template-columns: repeat(1fr, 2fr);
+      grid-auto-flow: column;
+
+      gap: 1.5rem;
+
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    #header {
+        height: 900px;
+    }
+
+    #header>h1 {
+        overflow-wrap: break-word;
+    
+        margin-top: 180px;
+
+        font-size: 2rem;
+
+        padding-bottom: 3rem;
+    }
+
+    #header>p {
+        font-size: 2rem;
+    }
+
+    #gamegrid {
+        height: 900px;
+        width: 900px;
+
+        grid-template-columns: repeat(3, minmax(1fr, 150px));
+        grid-template-rows: repeat(3, minmax(1fr, 150px));
+    }
+
+    #gamegrid * {
+        overflow: hidden; /* prevent whitespace around char to enlarge grid box*/
+    
+        display: flex;
+    
+        align-items: center;
+        justify-content: center;
+    
+        font-size: 12rem;
+    
+        padding-bottom: 60px; /* vertically center x and o */
+    }
+  }
