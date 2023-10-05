@@ -11,7 +11,7 @@ html {
     background-color: #d5d6d7;
 }
 
-#container {
+#container1 {
     height: 100vh;
     width: 100vw;
 
@@ -72,12 +72,35 @@ html {
 
     font-size: 6rem;
 
-    /* temporary values */
     border: 3px solid green;
 
     color: green;
 }
 
+.result {
+    padding-top: 1rem;
+    font-size: 2rem;
+    color: green;
+}
+
+button {
+    font-size: 1.5rem;
+
+    margin-top: 1rem;
+
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 1rem;
+
+    background-color: rgb(55, 229, 98);
+
+    transition: all 0.2s ease-in;
+}
+
+button:hover {
+    color: green;
+    background-color: black;
+}
 
 /* -------------------------------------------- */
 /* ------------ FOR TABLET/DESKTOP ------------ */
@@ -116,14 +139,15 @@ html {
         font-size: 30px; /*1rem size*/
     }
 
-    #container {
+    #container2 {
       display: grid;
 
       align-items: center;
       justify-content: center;
 
-      grid-template-columns: repeat(1fr, 2fr);
+      grid-template-columns: 1fr, 2fr;
       grid-auto-flow: column;
+      
 
       gap: 1.5rem;
 
