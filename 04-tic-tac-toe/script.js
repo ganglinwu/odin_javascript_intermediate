@@ -4,6 +4,9 @@ const tictactoe = (() => {
     // nodelist of tictactoe boxes
     const _tttBoxNodeList = document.querySelectorAll('.box');
 
+    // is game over? boolean
+    let _gameOver = false;
+
     // span to announce result of game
     const resultSpan = document.querySelector('.result');
 
@@ -39,16 +42,23 @@ const tictactoe = (() => {
                 // already been marked with x or o
                 e.preventDefault();
             } else {
-                _tttBoxNodeList[indexNum].innerHTML = 'x';
-                _player1Move(indexNum);
-                _updateValues();
-                if (_determine() === 1) {
-                    resultSpan.innerText = 'Player wins!';
-                } else if (_determine() === -1) {
-                    resultSpan.innerText = 'Computer wins!';
-                } else if (_determine() === 2) {
-                    resultSpan.innerText = 'It\'s a draw!';
-                } 
+                if (_gameOver === false) {
+                    _tttBoxNodeList[indexNum].innerHTML = 'x';
+                    _player1Move(indexNum);
+                    _updateValues();
+                    if (_determine() === 1) {
+                        resultSpan.innerText = 'Player wins!';
+                        _gameOver = true;
+                    } else if (_determine() === -1) {
+                        resultSpan.innerText = 'Computer wins!';
+                        _gameOver = true;
+                    } else if (_determine() === 2) {
+                        resultSpan.innerText = 'It\'s a draw!';
+                        _gameOver= true;
+                    } 
+                } else {
+                    e.preventDefault();
+                }
             }
         })
     })
@@ -66,6 +76,7 @@ const tictactoe = (() => {
         _gBoard = new Array(9).fill(null);
         Array.from(_tttBoxNodeList).forEach(box=> box.innerText = '');
         resultSpan.innerText = '';
+        _gameOver = false;
     }
 
 
