@@ -12,6 +12,12 @@ const tictactoe = (() => {
     // is game over? boolean
     let _gameOver = false;
 
+    // player move count and computer move count
+    // helps to determine whose turn is next
+    let _playerMoveCount = 0;
+    let _comMoveCount = 0;
+
+
     // span to announce result of game
     const _resultSpan = document.querySelector('.result');
 
@@ -42,14 +48,14 @@ const tictactoe = (() => {
     Array.from(_tttBoxNodeList).forEach((box)=> {
         box.addEventListener('click', (e)=> {
             let indexNum = _getBoxIndex(e);
-            if (_tttBoxNodeList[indexNum].innerHTML) {
-                // if innerHTML is not empty string, it means this box has 
+            if (_tttBoxNodeList[indexNum].innerText) {
+                // if innerText is not empty string, it means this box has 
                 // already been marked with x or o
                 
                 e.preventDefault();
             } else {
                 if (_gameOver === false) {
-                    // we can continue below if game is not over
+                    // if game is not over and it's player's turn
 
                     _player1Move(indexNum);
                     // mark player1's move on html page
@@ -57,19 +63,41 @@ const tictactoe = (() => {
 
                     _updateValues();
                     // update all Values, row sum, column sum, diagonal sum
-                    // and check if win lose draw or continue
+                    // and check if win draw or continue
+                    // (since losing requires com to make a move we need not check for loss)
                     
                     if (_determine() === 1) {
-                        _resultSpan.innerText = 'Player wins!';
-                        _gameOver = true;
-                    } else if (_determine() === -1) {
-                        _resultSpan.innerText = 'Computer wins!';
+                        _resultSpan.innerText = `${_p1.getName()} wins!`;
                         _gameOver = true;
                     } else if (_determine() === 2) {
                         _resultSpan.innerText = 'It\'s a draw!';
                         _gameOver= true;
-                    } 
-                } else {
+                    }
+                    while (_gameOver === false) { 
+
+                    // it's the computer's turn to malke a move
+                    // we assign a random index number 
+                    // check if the box with that index is already occupied
+                    let _comChoiceIndexNum = _getRandomInt();
+                    while (_tttBoxNodeList[_comChoiceIndexNum].innerText) {
+                        _comChoiceIndexNum = _getRandomInt();
+                    }
+
+                    _comMove(_comChoiceIndexNum);
+                    // mark computer's move on html page
+                    // log computer's value into gBoardValues Array
+
+                    _updateValues();
+                    // update row, column diagonal sum
+                    // check if computer win
+                    // (we need not check for player win or draw!)
+
+                    if (_determine() === -1) {
+                    _resultSpan.innerText = 'Computer wins!';
+                    _gameOver = true;
+                    }
+                    }
+                    } else {
                     // else the _gameOver value is true
                     // no marking of boxes allowed
 
@@ -96,6 +124,8 @@ const tictactoe = (() => {
         Array.from(_tttBoxNodeList).forEach(box=> box.innerText = '');
         _resultSpan.innerText = '';
         _gameOver = false;
+        _playerMoveCount = 0;
+        _comMoveCount = 0;
     }
 
 
@@ -131,13 +161,15 @@ const tictactoe = (() => {
     function _player1Move(indexNum) {
         _gBoardValue.splice(indexNum,1,_p1.getMark());
         _tttBoxNodeList[indexNum].innerHTML = 'x';
+        _playerMoveCount++;
     }
 
     // computer can also make a move
     // but this will be a private function
     function _comMove(indexNum) {
         _gBoardValue.splice(indexNum,1,_com.getMark());
-        _tttBoxNodeList[indexNum].innerHTML = 'x';
+        _tttBoxNodeList[indexNum].innerHTML = 'o';
+        _comMoveCount++;
     }
 
     // determine winner
@@ -151,6 +183,11 @@ const tictactoe = (() => {
         } else {
             return 2; // game ended, no more boxes to click
         }    
+    }
+
+    // helper function for random int from 0 to 8
+    function _getRandomInt() {
+        return Math.floor(Math.random()*9);
     }
 
     // start game
