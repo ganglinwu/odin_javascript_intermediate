@@ -1,6 +1,209 @@
+html {
+    font-size: 12px; /*1rem size*/
+}
+
 * {
     padding: 0;
     margin: 0;
-    
+
     box-sizing: border-box;
+    
+    background-color: #d5d6d7;
 }
+
+#container1 {
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+}
+
+#header {
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+#header>h1 {
+    text-align: center;
+
+    font-size: 1.5rem;
+
+    padding-bottom: 2rem;
+}
+
+#header>p {
+    text-align: center;
+
+    font-size: 1rem;
+}
+
+fieldset {
+    margin-top: 2rem;
+
+    font-size: 1rem;
+
+    width: max-content;
+    padding: 1rem 3rem;
+}
+
+fieldset > :nth-child(3) {
+    margin-top: 1rem;
+}
+
+#main {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+}
+
+#gamegrid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(90px,1fr));
+    grid-template-rows: repeat(3, minmax(90px, 1fr));
+
+    margin-top: 3rem;
+}
+
+#gamegrid * {
+    box-sizing: border-box;
+    overflow: hidden; /* prevent whitespace around char to enlarge grid box*/
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 6rem;
+
+    border: 3px solid green;
+
+    color: green;
+}
+
+.result {
+    padding-top: 1rem;
+    font-size: 2rem;
+    color: green;
+}
+
+button {
+    font-size: 1.5rem;
+
+    margin-top: 1rem;
+
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 1rem;
+
+    background-color: rgb(55, 229, 98);
+
+    transition: all 0.2s ease-in;
+}
+
+button:hover {
+    color: green;
+    background-color: black;
+}
+
+/* -------------------------------------------- */
+/* ------------ FOR TABLET/DESKTOP ------------ */
+/* -------------------------------------------- */
+
+@media (min-width: 760px) and (max-width: 1440px) {
+    html {
+        box-sizing: border-box;
+        font-size: 21px; /*1rem size*/
+    }
+
+
+
+    #gamegrid {
+        height: 600px;
+        width: 600px;
+
+        grid-template-columns: repeat(3, minmax(200px));
+        grid-template-rows: repeat(3, minmax(200px));
+    }
+
+    #gamegrid * {
+        font-size: 8rem;
+
+        padding-bottom: 20px; /* vertically align x o */
+    }
+
+}
+/* ------------------------------------------ */
+/* ------------ FOR WIDE SCREENS ------------ */
+/* ------------------------------------------ */
+
+@media (min-width: 1440px) {
+    html {
+        box-sizing: border-box;
+        font-size: 30px; /*1rem size*/
+    }
+
+    #container2 {
+      display: grid;
+
+      align-items: center;
+      justify-content: center;
+
+      grid-template-columns: 1fr, 2fr;
+      grid-auto-flow: column;
+      
+
+      gap: 1.5rem;
+
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    #header {
+        height: 900px;
+    }
+
+    #header>h1 {
+        overflow-wrap: break-word;
+    
+        margin-top: 180px;
+
+        font-size: 2rem;
+
+        padding-bottom: 3rem;
+    }
+
+    #header>p {
+        font-size: 2rem;
+    }
+
+    #gamegrid {
+        height: 900px;
+        width: 900px;
+
+        grid-template-columns: repeat(3, minmax(1fr, 150px));
+        grid-template-rows: repeat(3, minmax(1fr, 150px));
+    }
+
+    #gamegrid * {
+        overflow: hidden; /* prevent whitespace around char to enlarge grid box*/
+    
+        display: flex;
+    
+        align-items: center;
+        justify-content: center;
+    
+        font-size: 12rem;
+    
+        padding-bottom: 60px; /* vertically center x and o */
+    }
+  }
