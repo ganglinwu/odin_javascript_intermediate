@@ -77,9 +77,24 @@ const tictactoe = (() => {
                     
                     // we assign a random index number 
                     // check if the box with that index is already occupied
-                    let _comChoiceIndexNum = _getRandomInt();
-                    while (_tttBoxNodeList[_comChoiceIndexNum].innerText) {
-                        _comChoiceIndexNum = _getRandomInt();
+                    // let _comChoiceIndexNum = _getRandomInt();
+                    // while (_tttBoxNodeList[_comChoiceIndexNum].innerText) {
+                    //     _comChoiceIndexNum = _getRandomInt();
+                    // }
+
+                    let _comChoiceIndexNum;
+                    let minScoreAchievable = Infinity;
+                    for (let j=0; j<9; j++) {
+                        const boardCopy = _gBoardValue;
+                        if (boardCopy[j]===null) {
+                            boardCopy.splice(j,1,-1);
+                            const score = _miniMax(boardCopy, true);
+                            if (score < minScoreAchievable) {
+                                minScoreAchievable = score;
+                                _comChoiceIndexNum = j
+                            }
+                            boardCopy.splice(j,1,null);
+                        }
                     }
                     
                     _comMove(_comChoiceIndexNum);
@@ -180,6 +195,38 @@ const tictactoe = (() => {
         _comMoveCount++;
     }
 
+    // miniMax function
+    function _miniMax(board, isMaximizingPlayer) {
+        const boardCopy = board;
+        const scoresArray = _updateValues(boardCopy);
+        const tempResult = _determine(scoresArray, boardCopy);
+        if (tempResult === 0 && isMaximizingPlayer) {
+            let bestScore = -Infinity;
+            for (let k = 0; k < 9; k++) {
+                if (boardCopy[k]===null) {
+                    boardCopy.splice(k,1,1);
+                    const score = _miniMax(boardCopy, false);
+                    bestScore = Math.max(bestScore, score);
+                    boardCopy.splice(k,1,null)
+                }
+            }
+            return bestScore;
+        } else if (tempResult === 0 && !isMaximizingPlayer) {
+            let bestScore = Infinity;
+            for (let k = 0; k < 9; k++) {
+                if (boardCopy[k]===null) {
+                    boardCopy.splice(k,1,-1);
+                    const score = _miniMax(boardCopy, true);
+                    bestScore = Math.min(bestScore, score);
+                    boardCopy.splice(k,1,null)
+                }
+            }
+            return bestScore;
+         } else return _arrSum(scoresArray);
+        // else either _determine returned non-zero value, 
+        // indicating either a winner or tie is produced
+    }
+
     // determine winner
     function _determine(scoresArray, board) {
         if (scoresArray.includes(30)) {
@@ -196,6 +243,13 @@ const tictactoe = (() => {
     // helper function for random int from 0 to 8
     function _getRandomInt() {
         return Math.floor(Math.random()*9);
+    }
+
+    // helper function to sum an array
+    function _arrSum(arr) {
+        let sum = 0;
+        arr.forEach(element => sum+=element)
+        return sum
     }
 
     // return public methods or variables
