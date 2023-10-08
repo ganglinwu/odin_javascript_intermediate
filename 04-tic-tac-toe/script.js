@@ -9,8 +9,15 @@ const tictactoe = (() => {
     // nodelist of tictactoe boxes
     const _tttBoxNodeList = document.querySelectorAll('.box');
 
+    // variables for radio buttons
+    const easyModeRadioBtn = document.getElementById('Easy');
+    const hardModeRadioBtn = document.getElementById('Hard');
+
     // is game over? boolean
     let _gameOver = false;
+
+    // is game in easy mode? boolean
+    let _easyMode = true;
 
     // player move count and computer move count
     // helps to determine whose turn is next
@@ -74,29 +81,31 @@ const tictactoe = (() => {
                 // but we first ensure game is not over
                 // also ensure _com is 1 move behind _player
                 while (_gameOver === false && _playerMoveCount > _comMoveCount) { 
-                    
-                    // we assign a random index number 
-                    // check if the box with that index is already occupied
-                    // let _comChoiceIndexNum = _getRandomInt();
-                    // while (_tttBoxNodeList[_comChoiceIndexNum].innerText) {
-                    //     _comChoiceIndexNum = _getRandomInt();
-                    // }
 
                     let _comChoiceIndexNum;
-                    let minScoreAchievable = Infinity;
-                    for (let j=0; j<9; j++) {
-                        const boardCopy = _gBoardValue;
-                        if (boardCopy[j]===null) {
-                            boardCopy.splice(j,1,-1);
-                            const score = _miniMax(boardCopy, true);
-                            if (score < minScoreAchievable) {
-                                minScoreAchievable = score;
-                                _comChoiceIndexNum = j
+                    if (_easyMode) {
+                        // we assign a random index number 
+                        // check if the box with that index is already occupied
+                        _comChoiceIndexNum = _getRandomInt();
+                        while (_tttBoxNodeList[_comChoiceIndexNum].innerText) {
+                            _comChoiceIndexNum = _getRandomInt();
+                        }
+                    } else {
+                        let minScoreAchievable = Infinity;
+                        for (let j=0; j<9; j++) {
+                            const boardCopy = _gBoardValue;
+                            if (boardCopy[j]===null) {
+                                boardCopy.splice(j,1,-1);
+                                const score = _miniMax(boardCopy, true);
+                                if (score < minScoreAchievable) {
+                                    minScoreAchievable = score;
+                                    _comChoiceIndexNum = j
+                                }
+                                boardCopy.splice(j,1,null);
                             }
-                            boardCopy.splice(j,1,null);
                         }
                     }
-                    
+                                      
                     _comMove(_comChoiceIndexNum);
                     // mark computer's move on html page
                     // log computer's value into gBoardValues Array
@@ -126,6 +135,10 @@ const tictactoe = (() => {
 
     // add click event listening for reset button
     _resetBtn.addEventListener('click', resetGame)
+
+    // add click event listening for radio button
+    easyModeRadioBtn.addEventListener('click', ()=> _easyMode=true);
+    hardModeRadioBtn.addEventListener('click', ()=> _easyMode=false);
 
     // get index number of box from mouse click event
     function _getBoxIndex(evt) {
@@ -242,7 +255,7 @@ const tictactoe = (() => {
 
     // helper function for random int from 0 to 8
     function _getRandomInt() {
-        return Math.floor(Math.random()*9);
+        return (Math.floor(Math.random()*9));
     }
 
     // helper function to sum an array
