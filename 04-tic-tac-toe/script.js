@@ -131,7 +131,10 @@ const tictactoe = (() => {
 
     // helper function to check sum of values in array
     function _gBoardValueSum(a,b,c) {
-        return _gBoardValue[a]+_gBoardValue[b]+_gBoardValue[c];
+        let _sum = _gBoardValue[a]+_gBoardValue[b]+_gBoardValue[c];
+        if (_sum === 3 || _sum === -3) {
+            return _sum*10;
+        } else return _sum;
     }
 
     // helper function to update win condition values
@@ -174,9 +177,9 @@ const tictactoe = (() => {
 
     // determine winner
     function _determine() {
-        if (_rowColumnDiagonalArr.includes(3)) {
+        if (_rowColumnDiagonalArr.includes(30)) {
             return 1; // player win
-        } else if (_rowColumnDiagonalArr.includes(-3)) {
+        } else if (_rowColumnDiagonalArr.includes(-30)) {
             return -1; // computer win 
         } else if (_gBoardValue.some(element => element===null)) {
             return 0; // there are still empty boxes, game has not ended
