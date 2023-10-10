@@ -15,6 +15,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     deleteAllBtn.addEventListener('click', deleteAllBooks)
 });
 
+
 //var bookCount = 0 // total number of books
 
 
@@ -47,14 +48,27 @@ function validateForm(e) {
     }
 }
 
-// object constructor Book 
+// class Book
 
-function Book(index, title, author, pages, read) {
-    this.index = index;
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+class Book {
+    constructor(index, title, author, pages, read) {
+        this.index = index;
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+    set newTitle(newTitle) {
+        this.title = newTitle;
+    }
+
+    set newAuthor(newAuthor) {
+        this.author = newAuthor;
+    }
+
+    set newPages(newPages) {
+        this.pages = newPages;
+    }
 }
 
 // function to add book to array
