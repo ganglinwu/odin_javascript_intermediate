@@ -1,7 +1,11 @@
 import loadHome from "./home.js";
 import loadMenu from "./menu.js";
 import loadContact from "./contact.js";
+
 import './style.css';
+
+import fbSVG from './img/fb.svg';
+import instaSVG from './img/insta.svg';
 
 
 // create header
@@ -26,6 +30,12 @@ document.body.appendChild(contentDiv);
 // create footer
 const footer = createDiv();
 footer.setAttribute('id', 'footer');
+[fbSVG, instaSVG].forEach((imgElement)=> {
+    const a = new Image();
+    a.src = imgElement
+    footer.appendChild(a);
+});
+
 document.body.appendChild(footer);
 
 
@@ -38,3 +48,4 @@ function createDiv(className) {
     }
     return div
 }
+
