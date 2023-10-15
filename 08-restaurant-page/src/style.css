@@ -77,27 +77,27 @@
     width: inherit; /* image does not command viewport */
     filter: brightness(50%); 
     height: calc(100vw - 20px);
-
+    
     object-fit: cover;
     object-position: 0% 60%;
-
+    
     position: relative;
 }
 
 .splashText1 {
     position: absolute;
     top: calc(25vw);
-
+    
     text-align: center;
     
-
+    
     padding: 1rem;
-
+    
     background-color: transparent;
-
+    
     font-family: 'cafeFont0';
     font-size: 2rem;
-
+    
     color: var(--orange3);
 }
 
@@ -105,19 +105,52 @@
     position: absolute;
     top: calc(100vw);
     right: 0px;
-
+    
     text-align: center;
     
-
+    
     padding: 1rem;
-
+    
     background-color: transparent;
-
+    
     font-family: 'cafeFont0';
     font-size: 2rem;
-
+    
     color: var(--orange3);
 }
+
+/* styles for menu tab */
+
+#menuMain {
+    width: 100vw;
+}
+
+#menuMain * {
+    width: inherit;
+}
+
+#foodMenu {
+    display: grid;
+
+    grid-auto-flow: row;
+    grid-auto-rows: 15rem;
+
+    gap: 3rem;
+}
+
+#foodMenu *img {
+    object-fit: cover;
+    width: 100%;
+    height: inherit;
+
+}
+
+#foodMenu>div {
+    height: inherit;
+
+    overflow: hidden;
+}
+
 
 
 /* ------------------------------ */

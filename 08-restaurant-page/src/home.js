@@ -12,11 +12,11 @@ export default function loadHome() {
 
     //create text div with class 'splashText1'
     const splashText1 = createDiv('splashText1');
-    splashText1.innerText = 'Come to odin\'s'
+    splashText1.innerText = 'COME TO ODIN\'S'
     
     //create text div with class 'splashText2'
     const splashText2 = createDiv('splashText2');
-    splashText2.innerText = 'for a warm cuppa joy!'
+    splashText2.innerText = 'FOR A WARM CUPPA JOY!'
     
     //append img to splash
     splash.appendChild(splashImgElement);

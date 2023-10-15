@@ -102,7 +102,7 @@ function loadTab(evt) {
             contentDiv.appendChild(loadHome());
             break;
         case 'menu':
-            loadMenu;
+            contentDiv.appendChild(loadMenu());
             break;
         case 'contact':
             loadContact;
