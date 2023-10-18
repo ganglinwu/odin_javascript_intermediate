@@ -1,18 +1,18 @@
-import menu1 from './img/menu1.jpeg';
-import menu2 from './img/menu2.jpeg';
-import menu3 from './img/menu3.jpeg';
-import menu4 from './img/menu4.jpeg';
-import menu5 from './img/menu5.jpeg';
-import menu6 from './img/menu6.jpeg';
+import menu1 from './img/menu1.png';
+import menu2 from './img/menu2.png';
+import menu3 from './img/menu3.png';
+import menu4 from './img/menu4.png';
+import menu5 from './img/menu5.png';
+import menu6 from './img/menu6.png';
 
-import coffee1 from './img/coffee1.jpeg';
-import coffee2 from './img/coffee2.jpeg';
-import coffee3 from './img/coffee3.jpeg';
+import coffee1 from './img/coffee1.png';
+import coffee2 from './img/coffee2.png';
+import coffee3 from './img/coffee3.png';
 
-import tea1 from './img/tea1.jpeg';
+import tea1 from './img/tea1.png';
 
-const menuImgArray = [menu1, menu2, menu3, menu4, menu5, menu6]
-const coffeeImgArray = [coffee1, coffee2, coffee3]
+const foodImgArray = [menu1, menu2, menu3, menu4, menu5, menu6]
+const drinkImgArray = [coffee1, coffee2, coffee3, tea1]
 
 import { createDiv, createIMG } from '.';
 
@@ -27,7 +27,7 @@ export default function loadMenu() {
     const foodMenuDiv = createDiv();
     foodMenuDiv.setAttribute('id', 'foodMenu');
 
-    menuImgArray.forEach((element) => {
+    foodImgArray.forEach((element) => {
        const menuItem = createDiv('menuItemContainer');
        const imgElement = createIMG(element, 'menu');
        const descriptionDiv = createDiv('description');
@@ -39,18 +39,31 @@ export default function loadMenu() {
    })
 
     menuMainDiv.appendChild(foodMenuDiv);
-
+    
     /* ----------------------------------- */
     /* ----------- drinks menu ----------- */
     /* ----------------------------------- */
     
-    
+    const drinkMenuDiv = createDiv();
+    drinkMenuDiv.setAttribute('id', 'drinkMenu');
 
+    drinkImgArray.forEach((element) => {
+        const menuItem = createDiv('drinkItemContainer');
+        const imgElement = createIMG(element, 'drink');
+        const descriptionDiv = createDiv('description');
+
+        menuItem.appendChild(imgElement);
+        menuItem.appendChild(descriptionDiv);
+
+        drinkMenuDiv.appendChild(menuItem);
+    })
+
+    menuMainDiv.appendChild(drinkMenuDiv);
 
     return menuMainDiv
 }
 
-// Image by serhii_bobyk on Freepik
+// Photo by serhii_bobyk on Freepik
 // Photo by Arya Bajra www.pexels.com
 // Photo by Dzenina Lukac www.pexels.com
 // Photo by Pixabay www.pexels.com

@@ -100,12 +100,15 @@ function loadTab(evt) {
     switch (evt.target.id) {
         case 'home':
             contentDiv.appendChild(loadHome());
+            photoCredits.innerText = 'Photo by Praful Das www.pexels.com'
             break;
         case 'menu':
             contentDiv.appendChild(loadMenu());
+            photoCredits.innerText = 'Photo by serhii_bobyk on Freepik \n Photo by Arya Bajra www.pexels.com \n Photo by Dzenina Lukac www.pexels.com \n Photo by Pixabay www.pexels.com \n Photo by Natan Machado Fotografia Gastronômica www.pexels.com \n Photo by Kristina Paukshtite www.pexels.com \n Photo by Victor Freitas www.pexels.com \n Photo by Chevanon Photography www.pexels.com \n Photo by Casa Norte www.pexels.com \n Photo by Charlotte May www.pexels.com'
             break;
         case 'contact':
             loadContact;
+            photoCredits.innerText = ''
             break;
     }
 }

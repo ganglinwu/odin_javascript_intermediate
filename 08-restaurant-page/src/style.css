@@ -91,7 +91,7 @@
     text-align: center;
     
     
-    padding: 1rem;
+    padding: 2rem;
     
     background-color: transparent;
     
@@ -136,6 +136,8 @@
     grid-auto-rows: 15rem;
 
     gap: 3rem;
+
+    margin-bottom: 3rem;
 }
 
 #foodMenu *img {
@@ -151,7 +153,35 @@
     overflow: hidden;
 }
 
+#drinkMenu {
+    display: grid;
 
+    grid-auto-flow: row;
+    grid-auto-rows: 15rem;
+
+    gap: 3rem;
+}
+
+#drinkMenu *img {
+    object-fit: cover;
+    width: 100%;
+    height: inherit;
+
+}
+
+#drinkMenu>div {
+    height: inherit;
+
+    overflow: hidden;
+}
+
+.menuItemContainer {
+    position: relative;
+}
+
+.description {
+    position: absolute;
+}
 
 /* ------------------------------ */
 /* ------- footer section ------- */
