@@ -125,7 +125,7 @@
     width: 100vw;
 }
 
-#menuMain * {
+#menuMain *:not(.description){
     width: inherit;
 }
 
@@ -166,7 +166,6 @@
     object-fit: cover;
     width: 100%;
     height: inherit;
-
 }
 
 #drinkMenu>div {
@@ -175,13 +174,44 @@
     overflow: hidden;
 }
 
-.menuItemContainer {
+.menuItemContainer,
+.drinkItemContainer {
     position: relative;
 }
 
 .description {
     position: absolute;
+
+    width: 33vw;
+
+    top: 1rem;
+    right: -10rem;
+    background-color: transparent;
+    
+    color: #e6e6e6;
+    font-family: 'cafeFont0';
 }
+
+.menuItemContainer:hover .description{
+    transition: all 0.5s ease-in;
+    right: 0rem;
+}
+
+.menuItemContainer:hover img {
+    transition: all 0.5s ease-in;
+    filter: brightness(0.5);
+}
+
+.drinkItemContainer:hover .description{
+    transition: all 0.5s ease-in;
+    right: 0rem;
+}
+
+.drinkItemContainer:hover img {
+    transition: all 0.5s ease-in;
+    filter: brightness(0.5);
+}
+
 
 /* ------------------------------ */
 /* ------- footer section ------- */

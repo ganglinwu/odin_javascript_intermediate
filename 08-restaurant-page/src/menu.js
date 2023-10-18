@@ -31,6 +31,7 @@ export default function loadMenu() {
        const menuItem = createDiv('menuItemContainer');
        const imgElement = createIMG(element, 'menu');
        const descriptionDiv = createDiv('description');
+       descriptionDiv.innerText = 'BREAKFAST ROLL \n smashed avocado, scrambled eggs, special sauce, sourdough bun'
 
        menuItem.appendChild(imgElement);
        menuItem.appendChild(descriptionDiv);
@@ -51,6 +52,7 @@ export default function loadMenu() {
         const menuItem = createDiv('drinkItemContainer');
         const imgElement = createIMG(element, 'drink');
         const descriptionDiv = createDiv('description');
+        descriptionDiv.innerText = 'DRIP COFFEE \n ethiopia, notes: berries, elderflower'
 
         menuItem.appendChild(imgElement);
         menuItem.appendChild(descriptionDiv);
