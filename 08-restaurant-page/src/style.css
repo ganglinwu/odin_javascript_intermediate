@@ -200,6 +200,7 @@
 .menuItemContainer:hover img {
     transition: all 0.5s ease-in;
     filter: brightness(0.5);
+    transform: scale(1.2);
 }
 
 .drinkItemContainer:hover .description{
@@ -210,6 +211,7 @@
 .drinkItemContainer:hover img {
     transition: all 0.5s ease-in;
     filter: brightness(0.5);
+    transform: scale(1.2);
 }
 
 
