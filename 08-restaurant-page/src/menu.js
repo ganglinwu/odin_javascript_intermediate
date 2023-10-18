@@ -11,10 +11,19 @@ import coffee3 from './img/coffee3.png';
 
 import tea1 from './img/tea1.png';
 
-const foodImgArray = [menu1, menu2, menu3, menu4, menu5, menu6]
-const drinkImgArray = [coffee1, coffee2, coffee3, tea1]
+const foodImgArray = [[menu1,'TIROKROKETES \n fried cheese balls, greek feta, soft gouda, cheddar, eggplant, fresh basil leaves '], 
+                        [menu2, 'ONION RINGS \n breaded onion rings, mayo-sriracha sauce'],
+                         [menu3, 'TRUFFLE FRIES \n belgium potato, white truffle oil, grated parmesan'],
+                          [menu4, 'PAPRIKA CRISPY WINGS \n hand breaded, lightly tossed in paprika powder'],
+                           [menu5, 'MEAT LOVER BURGER \n double cheese, onion rings, bacon, 100g grain fed beef patty, potato bun'],
+                            [menu6, 'CLASSIC MAGHERITA \n fresh tomato sauce, mozzarella, fresh basil leaves, olive oil']]
+const drinkImgArray = [[coffee1, 'DRIP COFFEE \n ethiopia, notes: berries, elderflower'],
+                        [coffee2, 'ESPRESSO \n single/double shot'],
+                         [coffee3, 'ICED AMERICANO \n single shot espresso, filtered water'],
+                          [tea1, 'MATCHA LATTE \n uji matcha espresso, soy/oat milk ']]
 
 import { createDiv, createIMG } from '.';
+
 
 export default function loadMenu() {
     const menuMainDiv = createDiv();
@@ -29,9 +38,9 @@ export default function loadMenu() {
 
     foodImgArray.forEach((element) => {
        const menuItem = createDiv('menuItemContainer');
-       const imgElement = createIMG(element, 'menu');
+       const imgElement = createIMG(element[0], 'menu');
        const descriptionDiv = createDiv('description');
-       descriptionDiv.innerText = 'BREAKFAST ROLL \n smashed avocado, scrambled eggs, special sauce, sourdough bun'
+       descriptionDiv.innerText = element[1];
 
        menuItem.appendChild(imgElement);
        menuItem.appendChild(descriptionDiv);
@@ -50,9 +59,9 @@ export default function loadMenu() {
 
     drinkImgArray.forEach((element) => {
         const menuItem = createDiv('drinkItemContainer');
-        const imgElement = createIMG(element, 'drink');
+        const imgElement = createIMG(element[0], 'drink');
         const descriptionDiv = createDiv('description');
-        descriptionDiv.innerText = 'DRIP COFFEE \n ethiopia, notes: berries, elderflower'
+        descriptionDiv.innerText = element[1]
 
         menuItem.appendChild(imgElement);
         menuItem.appendChild(descriptionDiv);
