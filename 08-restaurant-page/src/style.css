@@ -214,6 +214,11 @@
     transform: scale(1.2);
 }
 
+.contactTitle {
+    color: #e6e6e6;
+
+    font-size: 1.5rem;
+}
 
 /* ------------------------------ */
 /* ------- footer section ------- */
