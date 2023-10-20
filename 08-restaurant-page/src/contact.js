@@ -4,12 +4,14 @@ export default function loadContact() {
     const contactMainDiv = createDiv();
     contactMainDiv.setAttribute('id', 'contactMainDiv');
 
-    const contactTitle = createDiv('contactTitle');
+    /* ------------------------------------ */
+    /* --------- where to find us --------- */
+    /* ------------------------------------ */
+    const contactTitle = createDiv('title');
     contactTitle.innerText = 'Where to Find us!'
     const gmapsIframe = document.createElement('iframe');
-    gmapsIframe.style.width='80vw';
-    gmapsIframe.style.height='60vw';
-    gmapsIframe.style.border='none';
+    gmapsIframe.setAttribute('id', 'gmapsIframe')
+  
     gmapsIframe.allowFullscreen='';
     gmapsIframe.loading='lazy';
     gmapsIframe.referrerPolicy='no-referrer-when-downgrade';
@@ -18,7 +20,24 @@ export default function loadContact() {
     
     contactMainDiv.appendChild(contactTitle);
     contactMainDiv.appendChild(gmapsIframe);
+
+    /* --------------------------------- */
+    /* --------- opening hours --------- */
+    /* ---------------------------------- */
+    const openingHoursTitle = createDiv('title');
+    openingHoursTitle.innerText = 'Opening Hours'
+    const openingHours = createDiv('text');
+    openingHours.innerText = 'Weekdays 11am - 6pm \n Weekends 9am - 6pm \n Closed on Tuesdays'
+
+
+    contactMainDiv.appendChild(openingHoursTitle);
+    contactMainDiv.appendChild(openingHours);
+
+
     
+    /* ------------------------------------ */
+    /* --------- reservation form --------- */
+    /* ------------------------------------ */
     const formContainer = createDiv();
     formContainer.setAttribute('id', 'formContainer')
 

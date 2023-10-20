@@ -35,6 +35,7 @@
 #header {
     width: 100vw;
 
+
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -71,12 +72,14 @@
 
 #splash {
     width: 100vw;
+    position: relative;
 }
 
 #splash img {
     width: inherit; /* image does not command viewport */
     filter: brightness(50%); 
     height: calc(100vw - 20px);
+    max-height: 748px;
     
     object-fit: cover;
     object-position: 0% 60%;
@@ -86,7 +89,7 @@
 
 .splashText1 {
     position: absolute;
-    top: calc(25vw);
+    top: 0;
     
     text-align: center;
     
@@ -103,8 +106,8 @@
 
 .splashText2 {
     position: absolute;
-    top: calc(100vw);
-    right: 0px;
+    bottom: 0;
+    left: 2rem;
     
     text-align: center;
     
@@ -183,18 +186,22 @@
     position: absolute;
 
     width: 33vw;
+    max-width: 256px;
 
     top: 1rem;
     right: -10rem;
     background-color: transparent;
     
-    color: #e6e6e6;
+    color: transparent;
     font-family: 'cafeFont0';
+
+    font-size: 1rem;
 }
 
 .menuItemContainer:hover .description{
     transition: all 0.5s ease-in;
     right: 0.5rem;
+    color: #e6e6e6;
 }
 
 .menuItemContainer:hover img {
@@ -206,6 +213,7 @@
 .drinkItemContainer:hover .description{
     transition: all 0.5s ease-in;
     right: 0.5rem;
+    color: #e6e6e6;
 }
 
 .drinkItemContainer:hover img {
@@ -214,10 +222,27 @@
     transform: scale(1.2);
 }
 
-.contactTitle {
+.title {
     color: #e6e6e6;
 
     font-size: 1.5rem;
+}
+
+.text {
+    color: #e6e6e6;
+
+    font-size: 0.8rem;
+    font-weight: 100;
+}
+
+#gmapsIframe {
+    width: 80vw;
+    max-width: 614px;
+
+    height: 60vw;
+    max-height: 460px;
+
+    border: none;
 }
 
 /* ------------------------------ */
@@ -251,26 +276,23 @@
 
 .footerText {
     color: var(--white);
+
+    font-size: 0.8rem;
 }
 
-/* @media only screen and (max-width: 320px) {
+@media only screen and (min-width: 768px) {
     html {
-        font-size: 10px;
+        font-size: 25px;
     }
-
-    #splash img {
-        height: 300px;
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
     }
-} 
+    
+    body * {
+        max-width: 768px;
 
-@media only screen and (min-width:321px) and (max-width: 375px) {
-    #splash img {
-        height: 350px;
     }
 }
-
-@media only screen and (min-width:376px) and (max-width: 425px) {
-    #splash img {
-        height: 400px;
-    }
-} */
