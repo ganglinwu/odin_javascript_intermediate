@@ -1,5 +1,7 @@
 import { createDiv, createIMG } from "."
 
+import OpeningHours from "./dateTimeGenerator.js"
+
 export default function loadContact() {
     const contactMainDiv = createDiv();
     contactMainDiv.setAttribute('id', 'contactMainDiv');
@@ -26,22 +28,109 @@ export default function loadContact() {
     /* ---------------------------------- */
     const openingHoursTitle = createDiv('title');
     openingHoursTitle.innerText = 'Opening Hours'
-    const openingHours = createDiv('text');
-    openingHours.innerText = 'Weekdays 11am - 6pm \n Weekends 9am - 6pm \n Closed on Tuesdays'
+    const openingHoursText = createDiv('text');
+    openingHoursText.innerText = 'Weekdays 11am - 6pm \n Weekends 9am - 6pm \n Closed on Tuesdays'
 
 
     contactMainDiv.appendChild(openingHoursTitle);
-    contactMainDiv.appendChild(openingHours);
+    contactMainDiv.appendChild(openingHoursText);
 
 
     
     /* ------------------------------------ */
     /* --------- reservation form --------- */
     /* ------------------------------------ */
-    const formContainer = createDiv();
-    formContainer.setAttribute('id', 'formContainer')
+   
+    // create title and append
+    const reserveTitle = createDiv('title')
+    reserveTitle.innerText = 'Make a reservation'
 
+    contactMainDiv.appendChild(reserveTitle);
 
+    // create form
+    const form = document.createElement('form');
+    form.action = '';
+    form.method = 'post'
+
+    // form will have 3 dropdown inputs
+    // 1) party size
+    // 2) date
+    // 3) time
+
+    let openingHours = new OpeningHours(11, 18, 9, 18);
+
+    let dateTimeArr = [];
+    let dateToday = new Date();
+    
+    while (dateTimeArr.length < 3) {
+        dateTimeArr.push(openingHours.nextAvailableTime(dateToday));
+        dateToday.setDate(dateToday.getDate() + 1);
+        if (dateToday.getDay() === 0 || dateToday.getDay() === 6) {
+            dateToday.setHours(8, 59);
+        } else {
+            dateToday.setHours(10, 59);
+        }
+    }
+
+    let dateArr = []
+    dateTimeArr.forEach((element)=> {
+        dateArr.push(element[0]);
+    })
+
+    let timeArr = [...dateTimeArr[0][1]];
+
+    const partySizeInput = createDropdown('partySize', 'Party Size', 'partySize', 1, [1,2,3,4,5,6],'partySize');
+
+    const dateInput = createDropdown('dateInput', 'Date', 'date', 1, dateArr , 'dateInput');
+
+    const timeInput = createDropdown('timeInput', 'Time', 'time', 1, timeArr ,'timeInput');
+
+    // create button
+    const btn = document.createElement('button');
+    btn.setAttribute('type', 'submit');
+    btn.innerText = 'Reserve a table'
+    
+    form.appendChild(partySizeInput);
+    form.appendChild(dateInput);
+    form.appendChild(timeInput);
+    form.appendChild(btn);
+
+    contactMainDiv.appendChild(form);
 
     return contactMainDiv
 }
+
+
+// helper function to create dropdown and label, returns both elements under a div
+function createDropdown(id, labelName, inputName, dropdownSize, optionsArr, className) {
+    const inputWrapper = createDiv(className)
+
+    // create label for dropdown
+    const labelElement = document.createElement('label');
+    labelElement.setAttribute('for', id);
+    labelElement.innerText = labelName
+
+    // create select input
+    const dropdownElement = document.createElement('select');
+    dropdownElement.setAttribute('id', id);
+    dropdownElement.setAttribute('name', inputName);
+    dropdownElement.setAttribute('size', dropdownSize);
+    dropdownElement.setAttribute('required', '');
+
+    // create options
+    optionsArr.forEach((element) => {
+        const optionElement = document.createElement('option');
+        optionElement.setAttribute('value', element);
+        optionElement.innerText = element
+
+        dropdownElement.appendChild(optionElement)
+    })
+
+
+    inputWrapper.appendChild(labelElement);
+    inputWrapper.appendChild(dropdownElement);
+
+
+    return inputWrapper
+}
+
