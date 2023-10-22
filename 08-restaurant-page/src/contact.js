@@ -1,7 +1,5 @@
 import { createDiv, removeAllChildNodes } from "."
 
-import OpeningHours from "./dateTimeGenerator.js"
-
 export default function loadContact(openingHours) {
     const contactMainDiv = createDiv();
     contactMainDiv.setAttribute('id', 'contactMainDiv');
@@ -85,7 +83,7 @@ export default function loadContact(openingHours) {
 
     // create button
     const btn = document.createElement('button');
-    btn.setAttribute('type', 'submit');
+    btn.setAttribute('type', 'button');
     btn.innerText = 'Reserve a table'
     
     form.appendChild(partySizeInput);

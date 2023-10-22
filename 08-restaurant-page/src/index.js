@@ -117,6 +117,11 @@ function loadTab(evt) {
     }
 }
 
+    /* ----------------------------------- */
+    /* --------- event listeners --------- */
+    /* ----------------------------------- */
+
+
 // load home page by default
 window.addEventListener('DOMContentLoaded', contentDiv.appendChild(loadHome()));
 
@@ -126,23 +131,36 @@ function addEvtListener(OpeningHours) {
     const dateDropdownMenu = document.getElementById('dateInput');
     dateDropdownMenu.addEventListener('change', (evt)=> {
         removeAllChildNodes(timeDropdownMenu)
+        console.log(evt);
+        console.log(evt.target[0].selected);
         const chosenDate = new Date(evt.target.value);
-        if (chosenDate.getDay()===6 || chosenDate.getDay()===0) {
-            OpeningHours.wkendSlots.forEach((element)=> {
+        if (evt.target[0].selected) {
+            const timeSlotToday = OpeningHours.getRemainingTimeSlotsToday(new Date());
+            timeSlotToday.forEach((element) => {
                 const optionElement = document.createElement('option');
-                optionElement.setAttribute('value', element);
-                optionElement.innerText = element
-    
-                timeDropdownMenu.appendChild(optionElement)
+                    optionElement.setAttribute('value', element);
+                    optionElement.innerText = element
+        
+                    timeDropdownMenu.appendChild(optionElement)
             })
         } else {
-            OpeningHours.wkdaySlots.forEach((element)=> {
-                const optionElement = document.createElement('option');
-                optionElement.setAttribute('value', element);
-                optionElement.innerText = element
-    
-                timeDropdownMenu.appendChild(optionElement)
-        })
-    }
+            if (chosenDate.getDay()===6 || chosenDate.getDay()===0) {
+                OpeningHours.wkendSlots.forEach((element)=> {
+                    const optionElement = document.createElement('option');
+                    optionElement.setAttribute('value', element);
+                    optionElement.innerText = element
+        
+                    timeDropdownMenu.appendChild(optionElement)
+                })
+            } else {
+                OpeningHours.wkdaySlots.forEach((element)=> {
+                    const optionElement = document.createElement('option');
+                    optionElement.setAttribute('value', element);
+                    optionElement.innerText = element
+        
+                    timeDropdownMenu.appendChild(optionElement)
+            })
+        }
+        }
     })
 }

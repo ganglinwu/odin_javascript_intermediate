@@ -273,12 +273,17 @@ form label {
     font-size: 0.8rem;
 }
 
-form select {
+select {
     display: flex;
     flex-direction: column;
     background-color: #e6e6e6;
 
     font-size: 0.8rem;
+}
+
+select:hover {
+    background-color: var(--orange3);
+    transition: all ease-in-out 0.2s;
 }
 
 form option {
@@ -291,6 +296,15 @@ button {
     background-color: var(--orange1);
     color: var(--grey);
     
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: var(--orange3);
+    color: var(--black);
+
+    transform: scale(1.05);
+    transition: all ease-in-out 0.2s;
 }
 
 /* ------------------------------ */
@@ -320,6 +334,10 @@ button {
     width: 2rem;
     
     background-color: var(--grey);
+}
+
+.socialMediaContainerDiv img:hover{
+    cursor: pointer;
 }
 
 .footerText {

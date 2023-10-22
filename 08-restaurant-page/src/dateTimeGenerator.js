@@ -73,40 +73,53 @@ export default class OpeningHours {
 
             const dateStr = `(${dateObj.getDayName()}) ${dateObj.getMonthName()} ${dateObj.getDate()}, ${dateObj.getFullYear()}`
             // e.g. (Fri) Oct 20, 2023
-            let remainingOpenHoursArr=[]
-            if (this._isWkend) {
-                remainingOpenHoursArr = [...this.wkendSlots];
-                while (dateObj.getHours() > Number(remainingOpenHoursArr[0].substring(0,2))) {
-                    remainingOpenHoursArr.shift();
-                    }
-                if (dateObj.getHours() == Number(remainingOpenHoursArr[0].substring(0,2)) && dateObj.getMinutes()>30) {
-                    remainingOpenHoursArr.shift();
-                    }
-                } else {
-                remainingOpenHoursArr = [...this.wkdaySlots];
-                while (dateObj.getHours() > Number(remainingOpenHoursArr[0].substring(0,2))) {
-                    remainingOpenHoursArr.shift();
-                } 
-                if (dateObj.getHours() == Number(remainingOpenHoursArr[0].substring(0,2)) &&dateObj.getMinutes()>30) {
-                    remainingOpenHoursArr.shift();
-                }
-
-
-            }
+            let remainingOpenHoursArr= this.getRemainingTimeSlotsToday(dateObj)
             
             return [dateStr, remainingOpenHoursArr]
         }
+    }
+
+    // generate datestr of next 3 days cafe is open(inclusive of today)
+
+
+    // generate remaining timeslots based on time now
+    getRemainingTimeSlotsToday(dateObj) {
+        let remainingOpenHoursArr = [];
+        if (this._isWkend(dateObj)) {
+            remainingOpenHoursArr = [...this.wkendSlots];
+            while (dateObj.getHours() > Number(remainingOpenHoursArr[0].substring(0,2))) {
+                remainingOpenHoursArr.shift();
+                }
+            if (dateObj.getHours() == Number(remainingOpenHoursArr[0].substring(0,2)) && dateObj.getMinutes()>Number(remainingOpenHoursArr[0].slice(-2,))) {
+                remainingOpenHoursArr.shift();
+                }
+            } else {
+            remainingOpenHoursArr = [...this.wkdaySlots];
+            while (dateObj.getHours() > Number(remainingOpenHoursArr[0].substring(0,2))) {
+                remainingOpenHoursArr.shift();
+            } 
+            if (dateObj.getHours() == Number(remainingOpenHoursArr[0].substring(0,2)) &&dateObj.getMinutes()>30) {
+                remainingOpenHoursArr.shift();
+            }   
+        }
+        return remainingOpenHoursArr;
     }
 
     // helper function to generate time slots based on opening closing time
     _generateTimeSlots(open,close) {
         let timeSlotArr = []
         while (open < close) {
-            timeSlotArr.push(''+open+':00')
-            timeSlotArr.push(''+open+':30')
-            open+=1
+            if (open<10) {
+                timeSlotArr.push('0'+open+':00');
+                timeSlotArr.push('0'+open+':30');
+                open+=1;
+            } else {
+                timeSlotArr.push(''+open+':00');
+                timeSlotArr.push(''+open+':30');
+                open+=1;
+            }
         }
-        return timeSlotArr
+        return timeSlotArr;
     }
 }
 
@@ -114,3 +127,6 @@ export default class OpeningHours {
 // 1) if i called OpeningHours.nextAvailableTime() from another file, would it have access to the IIFE?
 // 2) need to implement something of while (availableDatesArr.length < 3) {generate more dates}
 //    (will probably need to keep a counter to increment by 1)
+//
+// Answers
+// 1) Yes
