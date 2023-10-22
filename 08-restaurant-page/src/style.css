@@ -287,6 +287,12 @@ form option {
     font-size: 0.8rem;
 }
 
+button {
+    background-color: var(--orange1);
+    color: var(--grey);
+    
+}
+
 /* ------------------------------ */
 /* ------- footer section ------- */
 /* ------------------------------ */

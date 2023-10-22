@@ -1,8 +1,8 @@
-import { createDiv, createIMG } from "."
+import { createDiv, removeAllChildNodes } from "."
 
 import OpeningHours from "./dateTimeGenerator.js"
 
-export default function loadContact() {
+export default function loadContact(openingHours) {
     const contactMainDiv = createDiv();
     contactMainDiv.setAttribute('id', 'contactMainDiv');
 
@@ -29,7 +29,7 @@ export default function loadContact() {
     const openingHoursTitle = createDiv('title');
     openingHoursTitle.innerText = 'Opening Hours'
     const openingHoursText = createDiv('text');
-    openingHoursText.innerText = 'Weekdays 11am - 6pm \n Weekends 9am - 6pm \n Closed on Tuesdays'
+    openingHoursText.innerText = `Weekdays ${openingHours.wkdayOpen}am - ${openingHours.wkdayClose%12}pm \n Weekends ${openingHours.wkendOpen}am - ${openingHours.wkendClose%12}pm \n Closed on Tuesdays`
 
 
     contactMainDiv.appendChild(openingHoursTitle);
@@ -57,8 +57,6 @@ export default function loadContact() {
     // 2) date
     // 3) time
 
-    let openingHours = new OpeningHours(11, 18, 9, 18);
-
     let dateTimeArr = [];
     let dateToday = new Date();
     
@@ -66,9 +64,9 @@ export default function loadContact() {
         dateTimeArr.push(openingHours.nextAvailableTime(dateToday));
         dateToday.setDate(dateToday.getDate() + 1);
         if (dateToday.getDay() === 0 || dateToday.getDay() === 6) {
-            dateToday.setHours(8, 59);
+            dateToday.setHours(openingHours.wkendOpen-1, 59);
         } else {
-            dateToday.setHours(10, 59);
+            dateToday.setHours(openingHours.wkdayOpen-1, 59);
         }
     }
 

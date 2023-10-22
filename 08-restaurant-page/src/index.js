@@ -8,6 +8,8 @@ import fbSVG from './img/fb.svg';
 import instaSVG from './img/insta.svg';
 import logo from './img/logo-black-coloured.png';
 
+import OpeningHours from "./dateTimeGenerator.js"
+
 
 // create header
 const header = createDiv();
@@ -97,6 +99,7 @@ function removeAllChildNodes(parent) {
 
 function loadTab(evt) {
     removeAllChildNodes(contentDiv);
+    let openingHours = new OpeningHours(11, 18, 9, 18);
     switch (evt.target.id) {
         case 'home':
             contentDiv.appendChild(loadHome());
@@ -107,11 +110,39 @@ function loadTab(evt) {
             photoCredits.innerText = 'Photo by serhii_bobyk on Freepik \n Photo by Arya Bajra www.pexels.com \n Photo by Dzenina Lukac www.pexels.com \n Photo by Pixabay www.pexels.com \n Photo by Natan Machado Fotografia Gastronômica www.pexels.com \n Photo by Kristina Paukshtite www.pexels.com \n Photo by Victor Freitas www.pexels.com \n Photo by Chevanon Photography www.pexels.com \n Photo by Casa Norte www.pexels.com \n Photo by Charlotte May www.pexels.com'
             break;
         case 'contact':
-            contentDiv.appendChild(loadContact());
+            contentDiv.appendChild(loadContact(openingHours));
             photoCredits.innerText = ''
+            addEvtListener(openingHours)
             break;
     }
 }
 
 // load home page by default
 window.addEventListener('DOMContentLoaded', contentDiv.appendChild(loadHome()));
+
+// function to add event listener to update time slots when choosing dates
+function addEvtListener(OpeningHours) {
+    const timeDropdownMenu = document.getElementById('timeInput');
+    const dateDropdownMenu = document.getElementById('dateInput');
+    dateDropdownMenu.addEventListener('change', (evt)=> {
+        removeAllChildNodes(timeDropdownMenu)
+        const chosenDate = new Date(evt.target.value);
+        if (chosenDate.getDay()===6 || chosenDate.getDay()===0) {
+            OpeningHours.wkendSlots.forEach((element)=> {
+                const optionElement = document.createElement('option');
+                optionElement.setAttribute('value', element);
+                optionElement.innerText = element
+    
+                timeDropdownMenu.appendChild(optionElement)
+            })
+        } else {
+            OpeningHours.wkdaySlots.forEach((element)=> {
+                const optionElement = document.createElement('option');
+                optionElement.setAttribute('value', element);
+                optionElement.innerText = element
+    
+                timeDropdownMenu.appendChild(optionElement)
+        })
+    }
+    })
+}

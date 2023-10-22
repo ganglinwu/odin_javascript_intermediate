@@ -1,7 +1,7 @@
 // IIFE to extend Date object prototype
 
 (function () {
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
@@ -23,8 +23,8 @@ export default class OpeningHours {
         this.wkdayClose = wkdayClose;
         this.wkendOpen = wkendOpen;
         this.wkendClose = wkendClose;
-        this.wkdaySlots = ['11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
-        this.wkendSlots = ['09:00','09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
+        this.wkdaySlots = this._generateTimeSlots(wkdayOpen, wkdayClose);
+        this.wkendSlots = this._generateTimeSlots(wkendOpen, wkendClose);
     }
 
     _isWkend(dateObj) {
@@ -34,11 +34,15 @@ export default class OpeningHours {
     }
 
     _cafeIsClosed(dateObj) {
-        if (dateObj.getHours()>=18) {
-            // check if after 6pm, cafe is closed
-            return true
-        } 
-        return false
+        if (this._isWkend) {
+            if (dateObj.getHours()< this.wkendClose) {
+                return false
+            } else return true
+        } else {
+            if (dateObj.getHours() < this.wkdayClose) {
+                return false
+            } else return true
+        }
     }
 
     nextAvailableTime(dateObj) {
@@ -92,7 +96,18 @@ export default class OpeningHours {
             
             return [dateStr, remainingOpenHoursArr]
         }
-}
+    }
+
+    // helper function to generate time slots based on opening closing time
+    _generateTimeSlots(open,close) {
+        let timeSlotArr = []
+        while (open < close) {
+            timeSlotArr.push(''+open+':00')
+            timeSlotArr.push(''+open+':30')
+            open+=1
+        }
+        return timeSlotArr
+    }
 }
 
 // Questions
